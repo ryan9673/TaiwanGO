@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TaiwanGo.Models.Wrap.CUserWrap>
+
+@{
+	ViewData["Title"] = "List";
+}
+
+<h1>會員資料一覽表</h1>
+<p>
+	@using (Html.BeginForm())
+	{
+		<div>關鍵字：@Html.TextBox("txtKeyword") <input type="submit" value="搜尋" /></div>
+	}
+
+</p>
+<p>
+	<a asp-action="Create">新增會員</a>
+</p>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>
+				序
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FEmail)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FPassword)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FPhone)
+			</th>
+			<th>@Html.DisplayNameFor(model => model.FBirthDate)</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FGender)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FCreatedAt)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FIsActive)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			int count = 0;
+			foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<td>
+						@count
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FEmail)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FPassword)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FPhone)
+					</td>
+					<td>
+						@(item.FBirthDate.HasValue ? item.FBirthDate.Value.ToString("yyyy-MM-dd") : "")
+					</td> <!-- 顯示生日，格式化 -->
+					<td>
+						@Html.DisplayFor(modelItem => item.FGender)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FCreatedAt)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FIsActive)
+					</td>
+					<td>
+						@Html.ActionLink("修改", "Edit", "User", new { id = item.FId }, new { @class = "btn btn-success" }) |
+						@Html.ActionLink("刪除", "Delete", "User", new { id = item.FId }, new { onclick = "return confirm('確定要刪除嗎?')" ,@class="btn btn-danger"})
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

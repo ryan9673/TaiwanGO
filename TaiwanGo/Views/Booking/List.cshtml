@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TaiwanGo.Models.Wrap.CBookingWrap>
+
+@{
+	ViewData["Title"] = "List";
+}
+
+<h2>訂單列表</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>訂單編號</th>
+			<th>訂購日期</th>
+			<th>數量</th>
+			<th>單價</th>
+			<th>總金額</th>
+			<th>建立時間</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			int count = 0;
+			foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<td>@count</td>
+					<td>@item.FBookingDate.ToString("yyyy-MM-dd")</td>
+					<td>@item.FQuantity</td>
+					<td>@item.FUnitPrice.ToString("C")</td>
+					<td>@item.FTotalAmount?.ToString("C")</td>
+					<td>@item.FCreatedAt?.ToString("yyyy-MM-dd HH:mm")</td>
+					<td>
+						@Html.ActionLink("修改", "Edit", "User", new { id = item.FId }, new { @class = "btn btn-success" }) |
+						@Html.ActionLink("刪除", "Delete", "User", new { id = item.FId }, new { onclick = "return confirm('確定要刪除嗎?')", @class = "btn btn-danger"})
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

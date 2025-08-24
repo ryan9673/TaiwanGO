@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TaiwanGo.Models.Domain.TTicket>
+
+@{
+	ViewData["Title"] = "List";
+}
+
+<h1>票券</h1>
+
+<p>
+	<a asp-action="Create">新增票券</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				序
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FAttractionId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FTicketName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FPrice)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FDescription)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FIsActive)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			int count = 0;
+			foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<td>
+						@count
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FAttractionId)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FTicketName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FPrice)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FDescription)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FIsActive)
+					</td>
+					<td>
+						@Html.ActionLink("修改", "Edit", "Ticket", new { id = item.FId }, new { @class = "btn btn-success" }) |
+						@Html.ActionLink("刪除", "Delete", "Ticket", new { id = item.FId }, new { onclick = "return confirm('確定要刪除嗎?')",@class="btn btn-danger" })
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
